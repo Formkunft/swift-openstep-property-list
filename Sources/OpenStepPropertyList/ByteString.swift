@@ -33,13 +33,9 @@ public struct ByteString: Sendable {
 		assert(value.isContiguousUTF8)
 		
 		#if DEBUG
+		// TODO: use `value.utf8Span.isKnownASCII` when span API is available
 		var value = value
-		if #available(macOS 26.0, *) {
-			assert(value.utf8Span.isKnownASCII || value.withUTF8(ByteString.isAllASCII(_:)) == isASCII)
-		}
-		else {
-			assert(value.withUTF8(ByteString.isAllASCII(_:)) == isASCII)
-		}
+		assert(value.withUTF8(ByteString.isAllASCII(_:)) == isASCII)
 		#endif
 		
 		self.value = value
@@ -105,12 +101,8 @@ extension ByteString: LosslessStringConvertible {
 		assert(value.isContiguousUTF8)
 		
 		var value = value
-		if #available(macOS 26.0, *) {
-			self.isASCII = value.utf8Span.isKnownASCII || value.withUTF8(ByteString.isAllASCII(_:))
-		}
-		else {
-			self.isASCII = value.withUTF8(ByteString.isAllASCII(_:))
-		}
+		// TODO: use `value.utf8Span.isKnownASCII` when span API is available
+		self.isASCII = value.withUTF8(ByteString.isAllASCII(_:))
 		self.value = value
 	}
 	
