@@ -1,0 +1,15 @@
+{
+  "originHash" : "7693d735eebb355e3b2a1d2f186bd186bee872caf74395234267a4ed55d2c346",
+  "pins" : [
+    {
+      "identity" : "swift-collection-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Formkunft/swift-collection-parser",
+      "state" : {
+        "revision" : "9ab391254b1f8b4e003fb8912eff5598177b8fce",
+        "version" : "2.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
