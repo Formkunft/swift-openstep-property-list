@@ -16,11 +16,12 @@
 
 extension PropertyList: ExpressibleByStringLiteral {
 	@inlinable
-	public init(stringLiteral value: StringLiteralType) {
+	public init(stringLiteral value: String) {
 		self = .string(ByteString(value), options: [])
 	}
 }
 
+#if !$Embedded
 extension PropertyList: ExpressibleByIntegerLiteral {
 	@inlinable
 	public init(integerLiteral value: Int) {
@@ -34,6 +35,7 @@ extension PropertyList: ExpressibleByFloatLiteral {
 		self = .number(value)!
 	}
 }
+#endif
 
 extension PropertyList: ExpressibleByArrayLiteral {
 	public typealias ArrayLiteralElement = PropertyList

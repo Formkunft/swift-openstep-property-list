@@ -14,6 +14,7 @@
 //  limitations under the License.
 //
 
+#if !$Embedded
 public protocol PropertyListProtocol {
 	func stringValue() -> ByteString?
 	
@@ -65,3 +66,4 @@ struct PropertyListDictionary: PropertyListDictionaryProtocol {
 		self.dictionary[PropertyList.Key(string: key, options: [])]
 	}
 }
+#endif

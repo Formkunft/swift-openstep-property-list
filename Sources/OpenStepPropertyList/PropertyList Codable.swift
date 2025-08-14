@@ -14,6 +14,7 @@
 //  limitations under the License.
 //
 
+#if !$Embedded
 extension PropertyList: Encodable {
 	public func encode(to encoder: any Encoder) throws {
 		switch self {
@@ -72,3 +73,4 @@ extension PropertyList.Key: Encodable {
 		try container.encode(self.string.value)
 	}
 }
+#endif

@@ -14,6 +14,7 @@
 //  limitations under the License.
 //
 
+#if !$Embedded
 extension PropertyList {
 	/// Returns a string representing an integer value.
 	@inlinable
@@ -368,3 +369,4 @@ extension PropertyList.Number: LosslessStringConvertible {
 		}
 	}
 }
+#endif

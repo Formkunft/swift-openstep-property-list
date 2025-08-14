@@ -14,14 +14,18 @@
 //  limitations under the License.
 //
 
-#if canImport(Glibc)
-import Glibc
-#elseif canImport(Musl)
-import Musl
+#if canImport(WASILibc)
+import WASILibc
+#elseif canImport(Darwin)
+import Darwin
 #elseif os(Windows)
 import MSVCRT
-#else
-import Darwin
+#elseif canImport(Glibc)
+import Glibc
+#elseif canImport(Android)
+import Android
+#elseif canImport(Musl)
+import Musl
 #endif
 
 public struct ByteString: Sendable {
@@ -136,7 +140,12 @@ extension ByteString: Hashable {
 				if lhsBaseAddress == rhsBaseAddress {
 					return true
 				}
+				
+				#if !$Embedded
 				return memcmp(lhsBaseAddress, rhsBaseAddress, lhsUTF8.count) == 0
+				#else
+				return lhsUTF8.elementsEqual(rhsUTF8)
+				#endif
 			}
 		}
 	}
@@ -173,7 +182,25 @@ extension ByteString: Comparable {
 					return false
 				}
 				let count = min(lhsUTF8.count, rhsUTF8.count)
-				return memcmp(lhsBaseAddress, rhsBaseAddress, count) < 0
+				
+				#if !$Embedded
+				let result = memcmp(lhsBaseAddress, rhsBaseAddress, count)
+				if result != 0 {
+					return result < 0
+				}
+				else {
+					return lhsUTF8.count < rhsUTF8.count
+				}
+				#else
+				for index in 0 ..< count {
+					let a = lhsUTF8[index]
+					let b = rhsUTF8[index]
+					if a != b {
+						return a < b
+					}
+				}
+				return lhsUTF8.count < rhsUTF8.count
+				#endif
 			}
 		}
 	}
