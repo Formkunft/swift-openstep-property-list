@@ -550,6 +550,7 @@ extension PropertyList {
 	/// Reads a property list value from the given bytes.
 	///
 	/// - Throws: `DecodingError` if parsing failed.
+	@available(macOS 10.15, iOS 13, tvOS 13, visionOS 1, watchOS 6, *)
 	@inlinable
 	@concurrent
 	public init(
@@ -615,6 +616,7 @@ extension PropertyList {
 	}
 	
 	#if TraitFoundation
+	@available(macOS 10.15, iOS 13, tvOS 13, visionOS 1, watchOS 6, *)
 	@inlinable
 	@concurrent
 	public init(
